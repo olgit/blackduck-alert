@@ -44,12 +44,12 @@ import com.synopsys.integration.alert.common.persistence.model.ConfigurationMode
 import com.synopsys.integration.alert.common.rest.model.AlertNotificationWrapper;
 import com.synopsys.integration.alert.common.workflow.task.StartupScheduledTask;
 import com.synopsys.integration.alert.common.workflow.task.TaskManager;
-import com.synopsys.integration.alert.component.scheduling.SchedulingConfiguration;
-import com.synopsys.integration.alert.component.scheduling.descriptor.SchedulingDescriptor;
-import com.synopsys.integration.alert.component.scheduling.descriptor.SchedulingDescriptorKey;
 import com.synopsys.integration.alert.database.api.DefaultNotificationManager;
+import com.synopsys.integration.alert.database.system.DefaultSystemMessageUtility;
 import com.synopsys.integration.alert.database.system.SystemMessage;
-import com.synopsys.integration.alert.database.system.SystemMessageUtility;
+import com.synopsys.integration.alert.web.component.scheduling.SchedulingConfiguration;
+import com.synopsys.integration.alert.web.component.scheduling.descriptor.SchedulingDescriptor;
+import com.synopsys.integration.alert.web.component.scheduling.descriptor.SchedulingDescriptorKey;
 
 @Component
 public class PurgeTask extends StartupScheduledTask {
@@ -60,13 +60,13 @@ public class PurgeTask extends StartupScheduledTask {
     private final Logger logger = LoggerFactory.getLogger(PurgeTask.class);
     private final SchedulingDescriptorKey schedulingDescriptorKey;
     private final DefaultNotificationManager notificationManager;
-    private final SystemMessageUtility systemMessageUtility;
+    private final DefaultSystemMessageUtility systemMessageUtility;
     private final ConfigurationAccessor configurationAccessor;
     private int dayOffset;
 
     @Autowired
     public PurgeTask(SchedulingDescriptorKey schedulingDescriptorKey, TaskScheduler taskScheduler, DefaultNotificationManager notificationManager,
-        SystemMessageUtility systemMessageUtility, TaskManager taskManager,
+        DefaultSystemMessageUtility systemMessageUtility, TaskManager taskManager,
         ConfigurationAccessor configurationAccessor) {
         super(taskScheduler, TASK_NAME, taskManager);
         this.schedulingDescriptorKey = schedulingDescriptorKey;

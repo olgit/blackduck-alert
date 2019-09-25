@@ -22,11 +22,11 @@ import com.synopsys.integration.alert.common.persistence.model.ConfigurationFiel
 import com.synopsys.integration.alert.common.persistence.model.ConfigurationModel;
 import com.synopsys.integration.alert.common.persistence.util.ConfigurationFieldModelConverter;
 import com.synopsys.integration.alert.common.security.EncryptionUtility;
-import com.synopsys.integration.alert.component.settings.descriptor.SettingsDescriptor;
-import com.synopsys.integration.alert.component.settings.descriptor.SettingsDescriptorKey;
-import com.synopsys.integration.alert.web.config.DescriptorProcessor;
-import com.synopsys.integration.alert.web.config.FieldModelProcessor;
-import com.synopsys.integration.alert.web.config.FieldValidationAction;
+import com.synopsys.integration.alert.web.component.settings.descriptor.SettingsDescriptor;
+import com.synopsys.integration.alert.web.component.settings.descriptor.SettingsDescriptorKey;
+import com.synopsys.integration.alert.web.config.action.FieldValidationAction;
+import com.synopsys.integration.alert.web.processor.DescriptorProcessor;
+import com.synopsys.integration.alert.web.processor.FieldModelProcessor;
 import com.synopsys.integration.alert.workflow.startup.component.AlertStartupInitializer;
 
 public class AlertStartupInitializerTest {

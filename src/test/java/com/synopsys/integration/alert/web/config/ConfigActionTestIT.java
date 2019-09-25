@@ -20,9 +20,12 @@ import com.synopsys.integration.alert.common.persistence.model.ConfigurationMode
 import com.synopsys.integration.alert.common.persistence.util.ConfigurationFieldModelConverter;
 import com.synopsys.integration.alert.common.rest.model.FieldModel;
 import com.synopsys.integration.alert.common.rest.model.FieldValueModel;
-import com.synopsys.integration.alert.component.settings.descriptor.SettingsDescriptor;
-import com.synopsys.integration.alert.component.settings.descriptor.SettingsDescriptorKey;
 import com.synopsys.integration.alert.util.AlertIntegrationTest;
+import com.synopsys.integration.alert.web.component.settings.descriptor.SettingsDescriptor;
+import com.synopsys.integration.alert.web.component.settings.descriptor.SettingsDescriptorKey;
+import com.synopsys.integration.alert.web.config.action.ConfigActions;
+import com.synopsys.integration.alert.web.processor.DescriptorProcessor;
+import com.synopsys.integration.alert.web.processor.FieldModelProcessor;
 
 public class ConfigActionTestIT extends AlertIntegrationTest {
     @Autowired

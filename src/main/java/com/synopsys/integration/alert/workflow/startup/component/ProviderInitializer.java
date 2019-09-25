@@ -29,6 +29,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.synopsys.integration.alert.common.provider.Provider;
+import com.synopsys.integration.alert.common.workflow.startup.StartupComponent;
 
 @Component
 @Order(6)

@@ -69,13 +69,6 @@ jacoco {
     toolVersion = "0.8.2"
 }
 
-repositories {
-    // Need this repository to resolve the spring-security-saml2-core dependencies
-    maven {
-        url 'https://build.shibboleth.net/nexus/content/repositories/releases/'
-    }
-}
-
 dependencies {
     implementation project(':alert-common')
     implementation project(':alert-database')
@@ -85,17 +78,8 @@ dependencies {
     implementation 'com.synopsys.integration:int-jira-common:0.4.0'
 
     // Spring
-    implementation 'org.springframework:spring-webmvc'
-
     implementation 'org.springframework.boot:spring-boot-starter-batch'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-
-    implementation 'org.springframework.security:spring-security-core'
-    implementation 'org.springframework.security:spring-security-config'
-    implementation 'org.springframework.security:spring-security-ldap'
-    implementation 'org.springframework.security:spring-security-web'
-
-    implementation 'org.springframework.security.extensions:spring-security-saml2-core:1.0.9.RELEASE'
 
     // Email
     runtimeOnly 'com.sun.mail:javax.mail:1.6.2'

@@ -13,8 +13,8 @@ import com.synopsys.integration.alert.common.exception.AlertDatabaseConstraintEx
 import com.synopsys.integration.alert.common.persistence.accessor.ConfigurationAccessor;
 import com.synopsys.integration.alert.common.persistence.model.ConfigurationFieldModel;
 import com.synopsys.integration.alert.common.persistence.model.ConfigurationModel;
-import com.synopsys.integration.alert.component.scheduling.descriptor.SchedulingDescriptor;
-import com.synopsys.integration.alert.component.scheduling.descriptor.SchedulingDescriptorKey;
+import com.synopsys.integration.alert.web.component.scheduling.descriptor.SchedulingDescriptor;
+import com.synopsys.integration.alert.web.component.scheduling.descriptor.SchedulingDescriptorKey;
 
 public class DailyTaskTest {
     private static final SchedulingDescriptorKey SCHEDULING_DESCRIPTOR_KEY = new SchedulingDescriptorKey();

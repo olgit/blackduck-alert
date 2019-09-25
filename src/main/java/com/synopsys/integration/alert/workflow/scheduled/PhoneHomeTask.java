@@ -39,7 +39,6 @@ import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
-import com.synopsys.integration.alert.AboutReader;
 import com.synopsys.integration.alert.ProxyManager;
 import com.synopsys.integration.alert.common.descriptor.config.ui.ChannelDistributionUIConfig;
 import com.synopsys.integration.alert.common.enumeration.AuditEntryStatus;
@@ -52,6 +51,7 @@ import com.synopsys.integration.alert.common.workflow.task.StartupScheduledTask;
 import com.synopsys.integration.alert.common.workflow.task.TaskManager;
 import com.synopsys.integration.alert.database.api.DefaultConfigurationAccessor;
 import com.synopsys.integration.alert.provider.blackduck.BlackDuckProperties;
+import com.synopsys.integration.alert.web.action.AboutReader;
 import com.synopsys.integration.blackduck.api.generated.discovery.ApiDiscovery;
 import com.synopsys.integration.blackduck.api.generated.response.CurrentVersionView;
 import com.synopsys.integration.blackduck.phonehome.BlackDuckPhoneHomeHelper;

@@ -33,6 +33,7 @@ import org.springframework.stereotype.Component;
 
 import com.synopsys.integration.alert.ProxyManager;
 import com.synopsys.integration.alert.common.AlertProperties;
+import com.synopsys.integration.alert.common.workflow.startup.StartupComponent;
 
 @Component
 @Order(4)

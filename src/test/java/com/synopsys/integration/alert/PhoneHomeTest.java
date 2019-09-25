@@ -20,6 +20,7 @@ import com.synopsys.integration.alert.common.persistence.model.ConfigurationMode
 import com.synopsys.integration.alert.database.api.DefaultConfigurationAccessor;
 import com.synopsys.integration.alert.provider.blackduck.TestBlackDuckProperties;
 import com.synopsys.integration.alert.util.TestAlertProperties;
+import com.synopsys.integration.alert.web.action.AboutReader;
 import com.synopsys.integration.alert.workflow.scheduled.PhoneHomeTask;
 import com.synopsys.integration.rest.proxy.ProxyInfo;
 

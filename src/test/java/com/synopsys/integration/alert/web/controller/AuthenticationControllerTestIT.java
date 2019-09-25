@@ -33,13 +33,13 @@ import com.synopsys.integration.alert.common.exception.AlertDatabaseConstraintEx
 import com.synopsys.integration.alert.common.exception.AlertException;
 import com.synopsys.integration.alert.common.rest.ResponseFactory;
 import com.synopsys.integration.alert.common.security.authorization.AuthorizationManager;
-import com.synopsys.integration.alert.component.settings.PasswordResetService;
 import com.synopsys.integration.alert.mock.model.MockLoginRestModel;
 import com.synopsys.integration.alert.provider.blackduck.BlackDuckProperties;
 import com.synopsys.integration.alert.util.AlertIntegrationTest;
 import com.synopsys.integration.alert.util.TestProperties;
 import com.synopsys.integration.alert.util.TestPropertyKey;
-import com.synopsys.integration.alert.web.actions.LoginActions;
+import com.synopsys.integration.alert.web.action.LoginActions;
+import com.synopsys.integration.alert.web.component.settings.PasswordResetService;
 import com.synopsys.integration.alert.web.security.authentication.ldap.LdapManager;
 
 public class AuthenticationControllerTestIT extends AlertIntegrationTest {

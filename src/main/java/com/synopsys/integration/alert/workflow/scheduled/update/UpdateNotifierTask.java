@@ -31,7 +31,7 @@ import com.synopsys.integration.alert.common.enumeration.SystemMessageSeverity;
 import com.synopsys.integration.alert.common.enumeration.SystemMessageType;
 import com.synopsys.integration.alert.common.workflow.task.StartupScheduledTask;
 import com.synopsys.integration.alert.common.workflow.task.TaskManager;
-import com.synopsys.integration.alert.database.system.SystemMessageUtility;
+import com.synopsys.integration.alert.database.system.DefaultSystemMessageUtility;
 import com.synopsys.integration.alert.workflow.scheduled.update.model.UpdateModel;
 
 @Component
@@ -40,11 +40,11 @@ public class UpdateNotifierTask extends StartupScheduledTask {
     public static final String CRON_EXPRESSION = "0 0 12 1/1 * ?";
 
     private final UpdateChecker updateChecker;
-    private final SystemMessageUtility systemMessageUtility;
+    private final DefaultSystemMessageUtility systemMessageUtility;
     private final UpdateEmailService updateEmailService;
 
     @Autowired
-    public UpdateNotifierTask(final TaskScheduler taskScheduler, final UpdateChecker updateChecker, final SystemMessageUtility systemMessageUtility, final UpdateEmailService updateEmailService, final TaskManager taskManager) {
+    public UpdateNotifierTask(final TaskScheduler taskScheduler, final UpdateChecker updateChecker, final DefaultSystemMessageUtility systemMessageUtility, final UpdateEmailService updateEmailService, final TaskManager taskManager) {
         super(taskScheduler, TASK_NAME, taskManager);
         this.updateChecker = updateChecker;
         this.systemMessageUtility = systemMessageUtility;

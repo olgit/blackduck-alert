@@ -33,6 +33,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.synopsys.integration.alert.common.persistence.accessor.UserAccessor;
 import com.synopsys.integration.alert.common.persistence.model.UserModel;
 import com.synopsys.integration.alert.common.persistence.model.UserRoleModel;
 import com.synopsys.integration.alert.database.user.UserEntity;
@@ -42,8 +43,7 @@ import com.synopsys.integration.alert.database.user.UserRoleRepository;
 
 @Component
 @Transactional
-public class DefaultUserAccessor {
-    public static final String DEFAULT_ADMIN_USER = "sysadmin";
+public class DefaultUserAccessor implements UserAccessor {
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
     private final PasswordEncoder defaultPasswordEncoder;
@@ -58,11 +58,13 @@ public class DefaultUserAccessor {
         this.authorizationUtility = authorizationUtility;
     }
 
+    @Override
     public List<UserModel> getUsers() {
         final List<UserEntity> userList = userRepository.findAll();
         return userList.stream().map(this::createModel).collect(Collectors.toList());
     }
 
+    @Override
     public Optional<UserModel> getUser(final String username) {
         return userRepository.findByUserName(username).map(this::createModel);
     }
@@ -74,10 +76,12 @@ public class DefaultUserAccessor {
         return UserModel.of(user.getUserName(), user.getPassword(), user.getEmailAddress(), roles);
     }
 
+    @Override
     public UserModel addOrUpdateUser(final UserModel user) {
         return addOrUpdateUser(user, false);
     }
 
+    @Override
     public UserModel addOrUpdateUser(final UserModel user, final boolean passwordEncoded) {
         final String password = (passwordEncoded ? user.getPassword() : defaultPasswordEncoder.encode(user.getPassword()));
         final UserEntity userEntity = new UserEntity(user.getName(), password, user.getEmailAddress());
@@ -94,10 +98,12 @@ public class DefaultUserAccessor {
         return createModel(userRepository.save(userEntity));
     }
 
+    @Override
     public UserModel addUser(final String userName, final String password, final String emailAddress) {
         return addOrUpdateUser(UserModel.of(userName, password, emailAddress, Collections.emptySet()));
     }
 
+    @Override
     public boolean assignRoles(final String username, final Set<Long> roleIds) {
         final Optional<UserEntity> entity = userRepository.findByUserName(username);
         boolean assigned = false;
@@ -108,6 +114,7 @@ public class DefaultUserAccessor {
         return assigned;
     }
 
+    @Override
     public boolean changeUserPassword(final String username, final String newPassword) {
         final Optional<UserEntity> entity = userRepository.findByUserName(username);
         if (entity.isPresent()) {
@@ -119,6 +126,7 @@ public class DefaultUserAccessor {
         return false;
     }
 
+    @Override
     public boolean changeUserEmailAddress(final String username, final String emailAddress) {
         final Optional<UserEntity> entity = userRepository.findByUserName(username);
         if (entity.isPresent()) {
@@ -130,6 +138,7 @@ public class DefaultUserAccessor {
         return false;
     }
 
+    @Override
     public void deleteUser(final String userName) {
         final Optional<UserEntity> userEntity = userRepository.findByUserName(userName);
         userEntity.ifPresent(entity -> {

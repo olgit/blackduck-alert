@@ -37,7 +37,7 @@ import com.synopsys.integration.alert.common.enumeration.SystemMessageSeverity;
 import com.synopsys.integration.alert.common.enumeration.SystemMessageType;
 import com.synopsys.integration.alert.common.exception.AlertRuntimeException;
 import com.synopsys.integration.alert.common.provider.ProviderValidator;
-import com.synopsys.integration.alert.database.system.SystemMessageUtility;
+import com.synopsys.integration.alert.database.system.DefaultSystemMessageUtility;
 import com.synopsys.integration.blackduck.configuration.BlackDuckServerConfig;
 import com.synopsys.integration.exception.IntegrationException;
 import com.synopsys.integration.log.IntLogger;
@@ -49,10 +49,10 @@ public class BlackDuckValidator extends ProviderValidator {
 
     private final AlertProperties alertProperties;
     private final BlackDuckProperties blackDuckProperties;
-    private final SystemMessageUtility systemMessageUtility;
+    private final DefaultSystemMessageUtility systemMessageUtility;
 
     @Autowired
-    public BlackDuckValidator(final AlertProperties alertProperties, final BlackDuckProperties blackDuckProperties, final SystemMessageUtility systemMessageUtility) {
+    public BlackDuckValidator(final AlertProperties alertProperties, final BlackDuckProperties blackDuckProperties, final DefaultSystemMessageUtility systemMessageUtility) {
         this.alertProperties = alertProperties;
         this.blackDuckProperties = blackDuckProperties;
         this.systemMessageUtility = systemMessageUtility;
@@ -105,7 +105,7 @@ public class BlackDuckValidator extends ProviderValidator {
         return true;
     }
 
-    private void connectivityWarning(final SystemMessageUtility systemMessageUtility, final String message) {
+    private void connectivityWarning(final DefaultSystemMessageUtility systemMessageUtility, final String message) {
         logger.warn(message);
         systemMessageUtility.addSystemMessage(message, SystemMessageSeverity.WARNING, SystemMessageType.BLACKDUCK_PROVIDER_CONNECTIVITY);
     }

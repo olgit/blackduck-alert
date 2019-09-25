@@ -34,7 +34,7 @@ import com.synopsys.integration.alert.provider.polaris.actions.PolarisGlobalTest
 import com.synopsys.integration.alert.util.TestProperties;
 import com.synopsys.integration.alert.util.TestPropertyKey;
 import com.synopsys.integration.alert.util.TestTags;
-import com.synopsys.integration.alert.web.config.FieldValidationAction;
+import com.synopsys.integration.alert.web.config.action.FieldValidationAction;
 import com.synopsys.integration.builder.BuilderStatus;
 import com.synopsys.integration.exception.IntegrationException;
 import com.synopsys.integration.log.IntLogger;

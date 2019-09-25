@@ -25,7 +25,6 @@ import com.synopsys.integration.alert.common.rest.ResponseFactory;
 import com.synopsys.integration.alert.database.api.DefaultProviderDataAccessor;
 import com.synopsys.integration.alert.provider.blackduck.BlackDuckProviderKey;
 import com.synopsys.integration.alert.provider.blackduck.mock.MockProviderDataAccessor;
-import com.synopsys.integration.alert.web.provider.ProviderDataController;
 
 public class ProviderDataControllerTest {
     private static final BlackDuckProviderKey BLACK_DUCK_PROVIDER_KEY = new BlackDuckProviderKey();

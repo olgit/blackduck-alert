@@ -52,6 +52,7 @@ import com.synopsys.integration.alert.database.configuration.repository.Descript
 import com.synopsys.integration.alert.provider.blackduck.BlackDuckProviderKey;
 import com.synopsys.integration.alert.util.AlertIntegrationTest;
 import com.synopsys.integration.alert.util.DatabaseConfiguredFieldTest;
+import com.synopsys.integration.alert.web.config.controller.JobConfigController;
 
 @Transactional
 public class JobConfigControllerTestIT extends DatabaseConfiguredFieldTest {

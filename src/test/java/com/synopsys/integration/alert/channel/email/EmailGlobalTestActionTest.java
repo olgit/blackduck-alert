@@ -38,7 +38,7 @@ import com.synopsys.integration.alert.util.TestAlertProperties;
 import com.synopsys.integration.alert.util.TestProperties;
 import com.synopsys.integration.alert.util.TestPropertyKey;
 import com.synopsys.integration.alert.util.TestTags;
-import com.synopsys.integration.alert.web.config.FieldValidationAction;
+import com.synopsys.integration.alert.web.config.action.FieldValidationAction;
 
 public class EmailGlobalTestActionTest {
     private static final EmailChannelKey EMAIL_CHANNEL_KEY = new EmailChannelKey();

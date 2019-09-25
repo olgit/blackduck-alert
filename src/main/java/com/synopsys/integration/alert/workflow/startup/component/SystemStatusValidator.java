@@ -22,15 +22,17 @@
  */
 package com.synopsys.integration.alert.workflow.startup.component;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import com.synopsys.integration.alert.common.persistence.accessor.SystemStatusUtility;
 import com.synopsys.integration.alert.common.persistence.model.UserModel;
 import com.synopsys.integration.alert.common.security.EncryptionUtility;
+import com.synopsys.integration.alert.common.workflow.startup.StartupComponent;
 import com.synopsys.integration.alert.database.api.DefaultUserAccessor;
-import com.synopsys.integration.alert.database.api.SystemStatusUtility;
+import com.synopsys.integration.alert.web.component.settings.descriptor.SettingsUIConfig;
 
 @Component
 @Order(2)
@@ -63,7 +65,7 @@ public class SystemStatusValidator extends StartupComponent {
 
     private boolean isAdminUserConfigured() {
         return userAccessor
-                   .getUser(DefaultUserAccessor.DEFAULT_ADMIN_USER)
+                   .getUser(SettingsUIConfig.DEFAULT_ADMIN_USER)
                    .filter(this::isUserEmailSet)
                    .filter(this::isUserPasswordSet)
                    .isPresent();

@@ -35,6 +35,7 @@ import com.synopsys.integration.alert.util.AlertIntegrationTest;
 import com.synopsys.integration.alert.util.TestProperties;
 import com.synopsys.integration.alert.util.TestPropertyKey;
 import com.synopsys.integration.alert.util.TestTags;
+import com.synopsys.integration.alert.web.action.LoginActions;
 import com.synopsys.integration.alert.web.security.authentication.AlertAuthenticationProvider;
 import com.synopsys.integration.alert.web.security.authentication.ldap.LdapManager;
 

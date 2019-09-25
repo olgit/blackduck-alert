@@ -15,11 +15,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.google.gson.Gson;
-import com.synopsys.integration.alert.AboutReader;
 import com.synopsys.integration.alert.ProxyManager;
 import com.synopsys.integration.alert.common.AlertProperties;
-import com.synopsys.integration.alert.database.api.SystemStatusUtility;
+import com.synopsys.integration.alert.database.api.DefaultSystemStatusAccessor;
 import com.synopsys.integration.alert.util.TestTags;
+import com.synopsys.integration.alert.web.action.AboutReader;
 import com.synopsys.integration.alert.workflow.scheduled.update.model.UpdateModel;
 import com.synopsys.integration.rest.proxy.ProxyInfo;
 
