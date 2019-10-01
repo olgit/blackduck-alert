@@ -1,5 +1,6 @@
 include 'alert-database'
-rootProject.name = 'blackduck-alert'
 include 'alert-common'
 include 'alert-web'
+rootProject.name = 'blackduck-alert'
+
 

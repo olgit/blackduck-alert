@@ -1,5 +1,5 @@
 /**
- * blackduck-alert
+ * alert-web
  *
  * Copyright (c) 2019 Synopsys, Inc.
  *
@@ -20,7 +20,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.synopsys.integration.alert;
+package com.synopsys.integration.alert.web.component.settings;
 
 import java.util.Optional;
 
@@ -35,6 +35,7 @@ import com.synopsys.integration.alert.common.exception.AlertDatabaseConstraintEx
 import com.synopsys.integration.alert.common.persistence.accessor.ConfigurationAccessor;
 import com.synopsys.integration.alert.common.persistence.model.ConfigurationFieldModel;
 import com.synopsys.integration.alert.common.persistence.model.ConfigurationModel;
+import com.synopsys.integration.alert.common.util.ProxyManager;
 import com.synopsys.integration.alert.web.component.settings.descriptor.SettingsDescriptor;
 import com.synopsys.integration.alert.web.component.settings.descriptor.SettingsDescriptorKey;
 import com.synopsys.integration.rest.credentials.CredentialsBuilder;
@@ -42,35 +43,24 @@ import com.synopsys.integration.rest.proxy.ProxyInfo;
 import com.synopsys.integration.rest.proxy.ProxyInfoBuilder;
 
 @Component
-public class ProxyManager {
-    private static final Logger logger = LoggerFactory.getLogger(ProxyManager.class);
+public class DefaultProxyManager implements ProxyManager {
+    private static final Logger logger = LoggerFactory.getLogger(DefaultProxyManager.class);
 
     private final SettingsDescriptorKey settingsDescriptorKey;
     private final ConfigurationAccessor configurationAccessor;
 
     @Autowired
-    public ProxyManager(SettingsDescriptorKey settingsDescriptorKey, ConfigurationAccessor configurationAccessor) {
+    public DefaultProxyManager(SettingsDescriptorKey settingsDescriptorKey, ConfigurationAccessor configurationAccessor) {
         this.settingsDescriptorKey = settingsDescriptorKey;
         this.configurationAccessor = configurationAccessor;
     }
 
-    private Optional<ConfigurationModel> getSettingsConfiguration() {
-        try {
-            return configurationAccessor.getConfigurationByDescriptorNameAndContext(settingsDescriptorKey.getUniversalKey(), ConfigContextEnum.GLOBAL)
-                       .stream()
-                       .findFirst();
-        } catch (final AlertDatabaseConstraintException ex) {
-            logger.error("Could not find the settings configuration for proxy data", ex);
-        }
-        return Optional.empty();
-    }
-
+    @Override
     public ProxyInfo createProxyInfo() throws IllegalArgumentException {
-        final Optional<ConfigurationModel> settingsConfiguration = getSettingsConfiguration();
-        final Optional<String> alertProxyHost = getProxySetting(settingsConfiguration, SettingsDescriptor.KEY_PROXY_HOST);
-        final Optional<String> alertProxyPort = getProxySetting(settingsConfiguration, SettingsDescriptor.KEY_PROXY_PORT);
-        final Optional<String> alertProxyUsername = getProxySetting(settingsConfiguration, SettingsDescriptor.KEY_PROXY_USERNAME);
-        final Optional<String> alertProxyPassword = getProxySetting(settingsConfiguration, SettingsDescriptor.KEY_PROXY_PWD);
+        final Optional<String> alertProxyHost = getProxyHost();
+        final Optional<String> alertProxyPort = getProxyPort();
+        final Optional<String> alertProxyUsername = getProxyUsername();
+        final Optional<String> alertProxyPassword = getProxyPassword();
 
         final ProxyInfoBuilder proxyBuilder = new ProxyInfoBuilder();
         if (alertProxyHost.isPresent()) {
@@ -109,6 +99,17 @@ public class ProxyManager {
     private Optional<String> getProxySetting(final String key) {
         final Optional<ConfigurationModel> settingsConfiguration = getSettingsConfiguration();
         return getProxySetting(settingsConfiguration, key);
+    }
+
+    private Optional<ConfigurationModel> getSettingsConfiguration() {
+        try {
+            return configurationAccessor.getConfigurationByDescriptorNameAndContext(settingsDescriptorKey.getUniversalKey(), ConfigContextEnum.GLOBAL)
+                       .stream()
+                       .findFirst();
+        } catch (final AlertDatabaseConstraintException ex) {
+            logger.error("Could not find the settings configuration for proxy data", ex);
+        }
+        return Optional.empty();
     }
 
     private Optional<String> getProxySetting(final Optional<ConfigurationModel> settingsConfiguration, final String key) {

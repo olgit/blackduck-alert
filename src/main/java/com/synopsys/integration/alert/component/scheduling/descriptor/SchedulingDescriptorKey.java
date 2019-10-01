@@ -20,20 +20,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.synopsys.integration.alert.web.component.scheduling.actions;
+package com.synopsys.integration.alert.component.scheduling.descriptor;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.synopsys.integration.alert.common.action.ConfigurationAction;
-import com.synopsys.integration.alert.web.component.scheduling.descriptor.SchedulingDescriptorKey;
+import com.synopsys.integration.alert.common.descriptor.DescriptorKey;
 
 @Component
-public class SchedulingConfigurationAction extends ConfigurationAction {
-    @Autowired
-    protected SchedulingConfigurationAction(SchedulingDescriptorKey schedulingDescriptorKey, SchedulingGlobalApiAction schedulingGlobalApiAction) {
-        super(schedulingDescriptorKey);
-        addGlobalApiAction(schedulingGlobalApiAction);
+public final class SchedulingDescriptorKey extends DescriptorKey {
+    private static final String SCHEDULING_COMPONENT = "component_scheduling";
+
+    @Override
+    public String getUniversalKey() {
+        return SCHEDULING_COMPONENT;
     }
 
 }

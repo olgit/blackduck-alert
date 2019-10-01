@@ -23,7 +23,6 @@ import org.springframework.data.domain.PageRequest;
 
 import com.google.gson.Gson;
 import com.synopsys.integration.alert.audit.mock.MockAuditEntryEntity;
-import com.synopsys.integration.alert.channel.util.ChannelEventManager;
 import com.synopsys.integration.alert.common.ContentConverter;
 import com.synopsys.integration.alert.common.exception.AlertDatabaseConstraintException;
 import com.synopsys.integration.alert.common.persistence.accessor.ConfigurationAccessor;
@@ -32,6 +31,7 @@ import com.synopsys.integration.alert.common.persistence.model.AuditJobStatusMod
 import com.synopsys.integration.alert.common.persistence.model.ConfigurationModel;
 import com.synopsys.integration.alert.common.rest.model.AlertNotificationWrapper;
 import com.synopsys.integration.alert.common.rest.model.AlertPagedModel;
+import com.synopsys.integration.alert.common.util.ChannelEventManager;
 import com.synopsys.integration.alert.database.api.DefaultAuditUtility;
 import com.synopsys.integration.alert.database.api.DefaultNotificationManager;
 import com.synopsys.integration.alert.database.audit.AuditEntryRepository;

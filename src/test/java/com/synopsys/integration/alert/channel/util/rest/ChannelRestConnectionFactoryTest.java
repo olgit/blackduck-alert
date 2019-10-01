@@ -10,10 +10,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import com.synopsys.integration.alert.ProxyManager;
-import com.synopsys.integration.alert.channel.util.ChannelRestConnectionFactory;
+import com.synopsys.integration.alert.common.util.ChannelRestConnectionFactory;
 import com.synopsys.integration.alert.util.OutputLogger;
 import com.synopsys.integration.alert.util.TestAlertProperties;
+import com.synopsys.integration.alert.web.component.settings.DefaultProxyManager;
 import com.synopsys.integration.rest.client.IntHttpClient;
 import com.synopsys.integration.rest.credentials.Credentials;
 import com.synopsys.integration.rest.credentials.CredentialsBuilder;
@@ -52,9 +52,9 @@ public class ChannelRestConnectionFactoryTest {
 
         final TestAlertProperties testAlertProperties = new TestAlertProperties();
         testAlertProperties.setAlertTrustCertificate(true);
-        final ProxyManager proxyManager = Mockito.mock(ProxyManager.class);
-        Mockito.when(proxyManager.createProxyInfo()).thenReturn(expectedProxyInfo);
-        final ChannelRestConnectionFactory channelRestConnectionFactory = new ChannelRestConnectionFactory(testAlertProperties, proxyManager);
+        final DefaultProxyManager defaultProxyManager = Mockito.mock(DefaultProxyManager.class);
+        Mockito.when(defaultProxyManager.createProxyInfo()).thenReturn(expectedProxyInfo);
+        final ChannelRestConnectionFactory channelRestConnectionFactory = new ChannelRestConnectionFactory(testAlertProperties, defaultProxyManager);
 
         final IntHttpClient intHttpClient = channelRestConnectionFactory.createIntHttpClient();
 

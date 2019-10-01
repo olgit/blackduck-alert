@@ -30,16 +30,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Component;
 
-import com.synopsys.integration.alert.channel.util.ChannelEventManager;
 import com.synopsys.integration.alert.common.enumeration.FrequencyType;
 import com.synopsys.integration.alert.common.exception.AlertDatabaseConstraintException;
 import com.synopsys.integration.alert.common.persistence.accessor.ConfigurationAccessor;
 import com.synopsys.integration.alert.common.persistence.accessor.NotificationManager;
 import com.synopsys.integration.alert.common.persistence.model.ConfigurationFieldModel;
 import com.synopsys.integration.alert.common.persistence.model.ConfigurationModel;
+import com.synopsys.integration.alert.common.util.ChannelEventManager;
 import com.synopsys.integration.alert.common.workflow.task.TaskManager;
-import com.synopsys.integration.alert.web.component.scheduling.descriptor.SchedulingDescriptor;
-import com.synopsys.integration.alert.web.component.scheduling.descriptor.SchedulingDescriptorKey;
+import com.synopsys.integration.alert.component.scheduling.descriptor.SchedulingDescriptor;
+import com.synopsys.integration.alert.component.scheduling.descriptor.SchedulingDescriptorKey;
 import com.synopsys.integration.alert.workflow.processor.NotificationProcessor;
 
 @Component

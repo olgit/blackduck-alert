@@ -21,6 +21,7 @@ import com.synopsys.integration.alert.database.api.DefaultConfigurationAccessor;
 import com.synopsys.integration.alert.provider.blackduck.TestBlackDuckProperties;
 import com.synopsys.integration.alert.util.TestAlertProperties;
 import com.synopsys.integration.alert.web.action.AboutReader;
+import com.synopsys.integration.alert.web.component.settings.DefaultProxyManager;
 import com.synopsys.integration.alert.workflow.scheduled.PhoneHomeTask;
 import com.synopsys.integration.rest.proxy.ProxyInfo;
 
@@ -33,9 +34,9 @@ public class PhoneHomeTest {
         final AuditUtility auditUtility = Mockito.mock(AuditUtility.class);
         Mockito.when(auditUtility.findFirstByJobId(Mockito.any())).thenReturn(Optional.empty());
         final TaskScheduler taskScheduler = Mockito.mock(TaskScheduler.class);
-        final ProxyManager proxyManager = Mockito.mock(ProxyManager.class);
-        Mockito.when(proxyManager.createProxyInfo()).thenReturn(ProxyInfo.NO_PROXY_INFO);
-        final TestBlackDuckProperties blackDuckProperties = new TestBlackDuckProperties(new Gson(), new TestAlertProperties(), Mockito.mock(ConfigurationAccessor.class), proxyManager);
+        final DefaultProxyManager defaultProxyManager = Mockito.mock(DefaultProxyManager.class);
+        Mockito.when(defaultProxyManager.createProxyInfo()).thenReturn(ProxyInfo.NO_PROXY_INFO);
+        final TestBlackDuckProperties blackDuckProperties = new TestBlackDuckProperties(new Gson(), new TestAlertProperties(), Mockito.mock(ConfigurationAccessor.class), defaultProxyManager);
 
         final AboutReader aboutReader = Mockito.mock(AboutReader.class);
         Mockito.when(aboutReader.getProductVersion()).thenReturn(TEST_VERSION);
@@ -48,7 +49,7 @@ public class PhoneHomeTest {
         final Descriptor descriptor = Mockito.mock(Descriptor.class);
         Mockito.when(descriptorMap.getDescriptorMap()).thenReturn(Collections.singletonMap(TEST_DESCRIPTOR_NAME, descriptor));
 
-        final PhoneHomeTask phoneHomeTask = new PhoneHomeTask(taskScheduler, aboutReader, configurationAccessor, null, proxyManager, new Gson(), auditUtility, blackDuckProperties);
+        final PhoneHomeTask phoneHomeTask = new PhoneHomeTask(taskScheduler, aboutReader, configurationAccessor, null, defaultProxyManager, new Gson(), auditUtility, blackDuckProperties);
 
         try {
             phoneHomeTask.run();

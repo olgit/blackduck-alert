@@ -40,9 +40,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
-import com.synopsys.integration.alert.ProxyManager;
 import com.synopsys.integration.alert.common.AlertProperties;
 import com.synopsys.integration.alert.web.action.AboutReader;
+import com.synopsys.integration.alert.web.component.settings.DefaultProxyManager;
 import com.synopsys.integration.alert.web.model.AboutModel;
 import com.synopsys.integration.alert.workflow.scheduled.update.model.DockerTagModel;
 import com.synopsys.integration.alert.workflow.scheduled.update.model.DockerTagsResponseModel;
@@ -61,14 +61,14 @@ public class UpdateChecker {
     private final Logger logger = LoggerFactory.getLogger(UpdateChecker.class);
     private final Gson gson;
     private final AboutReader aboutReader;
-    private final ProxyManager proxyManager;
+    private final DefaultProxyManager defaultProxyManager;
     private AlertProperties alertProperties;
 
     @Autowired
-    public UpdateChecker(Gson gson, AboutReader aboutReader, ProxyManager proxyManager, AlertProperties alertProperties) {
+    public UpdateChecker(Gson gson, AboutReader aboutReader, DefaultProxyManager defaultProxyManager, AlertProperties alertProperties) {
         this.gson = gson;
         this.aboutReader = aboutReader;
-        this.proxyManager = proxyManager;
+        this.defaultProxyManager = defaultProxyManager;
         this.alertProperties = alertProperties;
     }
 
@@ -111,7 +111,7 @@ public class UpdateChecker {
 
     private IntHttpClient createHttpClient() {
         IntLogger intLogger = new Slf4jIntLogger(logger);
-        ProxyInfo proxyInfo = proxyManager.createProxyInfo();
+        ProxyInfo proxyInfo = defaultProxyManager.createProxyInfo();
         Boolean alwaysTrustServerCert = alertProperties.getAlertTrustCertificate().orElse(Boolean.FALSE);
         return new IntHttpClient(intLogger, 120, alwaysTrustServerCert, proxyInfo);
     }

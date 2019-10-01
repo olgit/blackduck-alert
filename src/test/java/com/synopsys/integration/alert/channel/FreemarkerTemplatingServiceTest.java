@@ -3,15 +3,16 @@ package com.synopsys.integration.alert.channel;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.io.IOException;
+
+import org.junit.jupiter.api.Test;
+
+import com.synopsys.integration.alert.common.util.FreemarkerTemplatingService;
+import com.synopsys.integration.alert.util.TestAlertProperties;
+
 import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import org.junit.jupiter.api.Test;
-
-import com.synopsys.integration.alert.channel.util.FreemarkerTemplatingService;
-import com.synopsys.integration.alert.util.TestAlertProperties;
-
-import java.io.IOException;
 
 public class FreemarkerTemplatingServiceTest {
     @Test

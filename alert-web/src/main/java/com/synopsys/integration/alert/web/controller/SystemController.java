@@ -1,5 +1,5 @@
 /**
- * blackduck-alert
+ * alert-web
  *
  * Copyright (c) 2019 Synopsys, Inc.
  *
@@ -47,9 +47,9 @@ import com.synopsys.integration.alert.common.descriptor.config.ui.DescriptorMeta
 import com.synopsys.integration.alert.common.enumeration.ConfigContextEnum;
 import com.synopsys.integration.alert.common.exception.AlertException;
 import com.synopsys.integration.alert.common.exception.AlertFieldException;
-import com.synopsys.integration.alert.common.persistence.model.SystemMessageModel;
 import com.synopsys.integration.alert.common.rest.ResponseFactory;
 import com.synopsys.integration.alert.common.rest.model.FieldModel;
+import com.synopsys.integration.alert.common.rest.model.SystemMessageModel;
 import com.synopsys.integration.alert.web.action.SystemActions;
 import com.synopsys.integration.alert.web.component.settings.descriptor.SettingsDescriptor;
 

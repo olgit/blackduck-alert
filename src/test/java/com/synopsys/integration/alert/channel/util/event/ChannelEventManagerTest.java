@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.jms.core.JmsTemplate;
 
-import com.synopsys.integration.alert.channel.util.ChannelEventManager;
 import com.synopsys.integration.alert.common.ContentConverter;
 import com.synopsys.integration.alert.common.event.AlertEvent;
 import com.synopsys.integration.alert.common.event.ContentEvent;
@@ -19,6 +18,7 @@ import com.synopsys.integration.alert.common.message.model.MessageContentGroup;
 import com.synopsys.integration.alert.common.message.model.ProviderMessageContent;
 import com.synopsys.integration.alert.common.persistence.accessor.AuditUtility;
 import com.synopsys.integration.alert.common.persistence.accessor.FieldAccessor;
+import com.synopsys.integration.alert.common.util.ChannelEventManager;
 import com.synopsys.integration.rest.RestConstants;
 
 public class ChannelEventManagerTest {

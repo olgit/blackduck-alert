@@ -11,12 +11,12 @@
  */
 package com.synopsys.integration.alert.channel.email.template;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
+
+import com.synopsys.integration.alert.common.channel.email.template.EmailTarget;
 
 public class EmailTargetTest {
     @Test

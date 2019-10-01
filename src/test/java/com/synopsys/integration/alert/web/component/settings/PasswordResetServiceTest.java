@@ -17,7 +17,6 @@ import org.junit.platform.commons.util.StringUtils;
 import org.mockito.Mockito;
 
 import com.synopsys.integration.alert.channel.email.EmailChannelKey;
-import com.synopsys.integration.alert.channel.util.FreemarkerTemplatingService;
 import com.synopsys.integration.alert.common.AlertProperties;
 import com.synopsys.integration.alert.common.enumeration.ConfigContextEnum;
 import com.synopsys.integration.alert.common.enumeration.EmailPropertyKeys;
@@ -27,6 +26,7 @@ import com.synopsys.integration.alert.common.persistence.accessor.ConfigurationA
 import com.synopsys.integration.alert.common.persistence.model.ConfigurationFieldModel;
 import com.synopsys.integration.alert.common.persistence.model.ConfigurationModel;
 import com.synopsys.integration.alert.common.persistence.model.UserModel;
+import com.synopsys.integration.alert.common.util.FreemarkerTemplatingService;
 import com.synopsys.integration.alert.database.api.DefaultUserAccessor;
 import com.synopsys.integration.alert.util.TestAlertProperties;
 import com.synopsys.integration.alert.util.TestProperties;

@@ -6,4 +6,17 @@ dependencies {
     api 'org.springframework.boot:spring-boot-starter-activemq'
     api 'org.springframework.security:spring-security-config'
     api 'org.springframework.boot:spring-boot-starter-web'
+
+    // Email
+    runtimeOnly 'com.sun.mail:javax.mail:1.6.2'
+    implementation 'javax.mail:javax.mail-api:1.6.2'
+
+    // This needs to be declared as api in order to annotate
+    // the Application.java with the datasource
+    api 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Templates
+    implementation 'org.jsoup:jsoup:1.9.2'
+    implementation 'com.jayway.jsonpath:json-path:2.3.0'
+    implementation 'org.freemarker:freemarker:2.3.25-incubating'
 }

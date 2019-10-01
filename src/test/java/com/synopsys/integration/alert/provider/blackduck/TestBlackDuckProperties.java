@@ -18,7 +18,6 @@ import java.util.Optional;
 import org.mockito.Mockito;
 
 import com.google.gson.Gson;
-import com.synopsys.integration.alert.ProxyManager;
 import com.synopsys.integration.alert.common.exception.AlertException;
 import com.synopsys.integration.alert.common.persistence.accessor.ConfigurationAccessor;
 import com.synopsys.integration.alert.common.persistence.model.ConfigurationFieldModel;
@@ -27,6 +26,7 @@ import com.synopsys.integration.alert.provider.blackduck.descriptor.BlackDuckDes
 import com.synopsys.integration.alert.util.TestAlertProperties;
 import com.synopsys.integration.alert.util.TestProperties;
 import com.synopsys.integration.alert.util.TestPropertyKey;
+import com.synopsys.integration.alert.web.component.settings.DefaultProxyManager;
 import com.synopsys.integration.blackduck.configuration.BlackDuckServerConfig;
 import com.synopsys.integration.blackduck.rest.BlackDuckHttpClient;
 import com.synopsys.integration.log.IntLogger;
@@ -42,16 +42,16 @@ public class TestBlackDuckProperties extends BlackDuckProperties {
     private boolean apiKeySet;
 
     public TestBlackDuckProperties(final TestAlertProperties alertProperties) {
-        this(new Gson(), alertProperties, Mockito.mock(ConfigurationAccessor.class), Mockito.mock(ProxyManager.class));
+        this(new Gson(), alertProperties, Mockito.mock(ConfigurationAccessor.class), Mockito.mock(DefaultProxyManager.class));
     }
 
-    public TestBlackDuckProperties(final Gson gson, final TestAlertProperties alertProperties, final ConfigurationAccessor baseConfigurationAccessor, final ProxyManager proxyManager) {
-        this(gson, alertProperties, baseConfigurationAccessor, proxyManager, 300, true);
+    public TestBlackDuckProperties(final Gson gson, final TestAlertProperties alertProperties, final ConfigurationAccessor baseConfigurationAccessor, final DefaultProxyManager defaultProxyManager) {
+        this(gson, alertProperties, baseConfigurationAccessor, defaultProxyManager, 300, true);
     }
 
-    public TestBlackDuckProperties(final Gson gson, final TestAlertProperties alertProperties, final ConfigurationAccessor baseConfigurationAccessor, final ProxyManager proxyManager, final Integer blackDuckTimeout,
+    public TestBlackDuckProperties(final Gson gson, final TestAlertProperties alertProperties, final ConfigurationAccessor baseConfigurationAccessor, final DefaultProxyManager defaultProxyManager, final Integer blackDuckTimeout,
         final boolean trustCertificates) {
-        super(new BlackDuckProviderKey(), gson, alertProperties, baseConfigurationAccessor, proxyManager);
+        super(new BlackDuckProviderKey(), gson, alertProperties, baseConfigurationAccessor, defaultProxyManager);
         this.blackDuckTimeout = blackDuckTimeout;
         testAlertProperties = alertProperties;
         testProperties = new TestProperties();

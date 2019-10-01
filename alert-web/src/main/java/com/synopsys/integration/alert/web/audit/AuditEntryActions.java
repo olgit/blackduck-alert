@@ -1,5 +1,5 @@
 /**
- * blackduck-alert
+ * alert-web
  *
  * Copyright (c) 2019 Synopsys, Inc.
  *
@@ -34,7 +34,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.synopsys.integration.alert.channel.util.ChannelEventManager;
 import com.synopsys.integration.alert.common.event.DistributionEvent;
 import com.synopsys.integration.alert.common.exception.AlertJobMissingException;
 import com.synopsys.integration.alert.common.exception.AlertNotificationPurgedException;
@@ -46,6 +45,7 @@ import com.synopsys.integration.alert.common.persistence.model.AuditJobStatusMod
 import com.synopsys.integration.alert.common.persistence.model.ConfigurationJobModel;
 import com.synopsys.integration.alert.common.rest.model.AlertNotificationWrapper;
 import com.synopsys.integration.alert.common.rest.model.AlertPagedModel;
+import com.synopsys.integration.alert.common.util.ChannelEventManager;
 import com.synopsys.integration.alert.workflow.processor.NotificationProcessor;
 import com.synopsys.integration.exception.IntegrationException;
 

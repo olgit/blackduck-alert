@@ -30,11 +30,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
-import com.synopsys.integration.alert.ProxyManager;
 import com.synopsys.integration.alert.common.AlertProperties;
 import com.synopsys.integration.alert.common.persistence.accessor.ConfigurationAccessor;
 import com.synopsys.integration.alert.common.provider.ProviderProperties;
 import com.synopsys.integration.alert.provider.polaris.descriptor.PolarisDescriptor;
+import com.synopsys.integration.alert.web.component.settings.DefaultProxyManager;
 import com.synopsys.integration.builder.BuilderStatus;
 import com.synopsys.integration.exception.IntegrationException;
 import com.synopsys.integration.log.IntLogger;
@@ -50,14 +50,14 @@ import com.synopsys.integration.rest.proxy.ProxyInfo;
 public class PolarisProperties extends ProviderProperties {
     public static final Integer DEFAULT_TIMEOUT = 300;
     private final AlertProperties alertProperties;
-    private final ProxyManager proxyManager;
+    private final DefaultProxyManager defaultProxyManager;
     private final Gson gson;
 
     @Autowired
-    public PolarisProperties(PolarisProviderKey polarisProviderKey, AlertProperties alertProperties, ConfigurationAccessor configurationAccessor, ProxyManager proxyManager, Gson gson) {
+    public PolarisProperties(PolarisProviderKey polarisProviderKey, AlertProperties alertProperties, ConfigurationAccessor configurationAccessor, DefaultProxyManager defaultProxyManager, Gson gson) {
         super(polarisProviderKey, configurationAccessor);
         this.alertProperties = alertProperties;
-        this.proxyManager = proxyManager;
+        this.defaultProxyManager = defaultProxyManager;
         this.gson = gson;
     }
 
@@ -123,7 +123,7 @@ public class PolarisProperties extends ProviderProperties {
         builder.setGson(gson);
         builder.setTrustCert(alertProperties.getAlertTrustCertificate().orElse(Boolean.FALSE));
 
-        final ProxyInfo proxyInfo = proxyManager.createProxyInfo();
+        final ProxyInfo proxyInfo = defaultProxyManager.createProxyInfo();
         final Optional<String> optionalProxyHost = proxyInfo.getHost().filter(StringUtils::isNotBlank);
         if (optionalProxyHost.isPresent()) {
             builder.setProxyHost(optionalProxyHost.get());

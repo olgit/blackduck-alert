@@ -33,11 +33,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.synopsys.integration.alert.channel.email.EmailChannelKey;
-import com.synopsys.integration.alert.channel.email.EmailMessagingService;
-import com.synopsys.integration.alert.channel.email.EmailProperties;
-import com.synopsys.integration.alert.channel.email.template.EmailTarget;
-import com.synopsys.integration.alert.channel.util.FreemarkerTemplatingService;
 import com.synopsys.integration.alert.common.AlertProperties;
+import com.synopsys.integration.alert.common.channel.email.EmailMessagingService;
+import com.synopsys.integration.alert.common.channel.email.EmailProperties;
+import com.synopsys.integration.alert.common.channel.email.template.EmailTarget;
 import com.synopsys.integration.alert.common.enumeration.ConfigContextEnum;
 import com.synopsys.integration.alert.common.enumeration.EmailPropertyKeys;
 import com.synopsys.integration.alert.common.exception.AlertException;
@@ -47,6 +46,7 @@ import com.synopsys.integration.alert.common.persistence.accessor.SettingsKeyAcc
 import com.synopsys.integration.alert.common.persistence.model.ConfigurationModel;
 import com.synopsys.integration.alert.common.persistence.model.SettingsKeyModel;
 import com.synopsys.integration.alert.common.persistence.model.UserModel;
+import com.synopsys.integration.alert.common.util.FreemarkerTemplatingService;
 import com.synopsys.integration.alert.database.api.DefaultUserAccessor;
 import com.synopsys.integration.alert.workflow.scheduled.update.model.UpdateModel;
 

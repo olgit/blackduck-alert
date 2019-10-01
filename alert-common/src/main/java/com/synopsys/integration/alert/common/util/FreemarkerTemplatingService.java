@@ -1,5 +1,5 @@
 /**
- * blackduck-alert
+ * alert-common
  *
  * Copyright (c) 2019 Synopsys, Inc.
  *
@@ -20,18 +20,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.synopsys.integration.alert.channel.util;
+package com.synopsys.integration.alert.common.util;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Map;
 
-import com.synopsys.integration.alert.channel.msteams.MsTeamsMessage;
-import com.synopsys.integration.exception.IntegrationException;
-import freemarker.cache.ClassTemplateLoader;
-import freemarker.cache.MultiTemplateLoader;
-import freemarker.cache.TemplateLoader;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +35,10 @@ import org.springframework.stereotype.Component;
 
 import com.synopsys.integration.alert.common.AlertConstants;
 import com.synopsys.integration.alert.common.AlertProperties;
+import com.synopsys.integration.exception.IntegrationException;
 
+import freemarker.cache.ClassTemplateLoader;
+import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;

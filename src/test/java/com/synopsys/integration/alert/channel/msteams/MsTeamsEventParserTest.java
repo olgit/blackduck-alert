@@ -14,13 +14,13 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
-import com.synopsys.integration.alert.channel.util.FreemarkerTemplatingService;
 import com.synopsys.integration.alert.common.enumeration.ItemOperation;
 import com.synopsys.integration.alert.common.event.DistributionEvent;
 import com.synopsys.integration.alert.common.message.model.ComponentItem;
 import com.synopsys.integration.alert.common.message.model.LinkableItem;
 import com.synopsys.integration.alert.common.message.model.MessageContentGroup;
 import com.synopsys.integration.alert.common.message.model.ProviderMessageContent;
+import com.synopsys.integration.alert.common.util.FreemarkerTemplatingService;
 import com.synopsys.integration.alert.util.TestAlertProperties;
 import com.synopsys.integration.exception.IntegrationException;
 

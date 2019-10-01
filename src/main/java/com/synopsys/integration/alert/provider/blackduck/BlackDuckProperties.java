@@ -32,7 +32,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
-import com.synopsys.integration.alert.ProxyManager;
 import com.synopsys.integration.alert.common.AlertProperties;
 import com.synopsys.integration.alert.common.exception.AlertException;
 import com.synopsys.integration.alert.common.persistence.accessor.ConfigurationAccessor;
@@ -40,6 +39,7 @@ import com.synopsys.integration.alert.common.persistence.accessor.FieldAccessor;
 import com.synopsys.integration.alert.common.persistence.model.ConfigurationModel;
 import com.synopsys.integration.alert.common.provider.ProviderProperties;
 import com.synopsys.integration.alert.provider.blackduck.descriptor.BlackDuckDescriptor;
+import com.synopsys.integration.alert.web.component.settings.DefaultProxyManager;
 import com.synopsys.integration.blackduck.configuration.BlackDuckServerConfig;
 import com.synopsys.integration.blackduck.configuration.BlackDuckServerConfigBuilder;
 import com.synopsys.integration.blackduck.rest.BlackDuckHttpClient;
@@ -55,14 +55,14 @@ public class BlackDuckProperties extends ProviderProperties {
     public static final int DEFAULT_TIMEOUT = 300;
     private final Gson gson;
     private final AlertProperties alertProperties;
-    private final ProxyManager proxyManager;
+    private final DefaultProxyManager defaultProxyManager;
 
     @Autowired
-    public BlackDuckProperties(BlackDuckProviderKey blackDuckProviderKey, Gson gson, AlertProperties alertProperties, ConfigurationAccessor configurationAccessor, ProxyManager proxyManager) {
+    public BlackDuckProperties(BlackDuckProviderKey blackDuckProviderKey, Gson gson, AlertProperties alertProperties, ConfigurationAccessor configurationAccessor, DefaultProxyManager defaultProxyManager) {
         super(blackDuckProviderKey, configurationAccessor);
         this.gson = gson;
         this.alertProperties = alertProperties;
-        this.proxyManager = proxyManager;
+        this.defaultProxyManager = defaultProxyManager;
     }
 
     public Optional<String> getBlackDuckUrl() {
@@ -177,7 +177,7 @@ public class BlackDuckProperties extends ProviderProperties {
         final Map<String, String> properties = new HashMap<>();
         properties.put(BlackDuckServerConfigBuilder.TRUST_CERT_KEY.getKey(), String.valueOf(alertProperties.getAlertTrustCertificate().orElse(false)));
 
-        final ProxyInfo proxyInfo = proxyManager.createProxyInfo();
+        final ProxyInfo proxyInfo = defaultProxyManager.createProxyInfo();
         properties.put(BlackDuckServerConfigBuilder.PROXY_HOST_KEY.getKey(), proxyInfo.getHost().orElse(""));
         properties.put(BlackDuckServerConfigBuilder.PROXY_PORT_KEY.getKey(), String.valueOf(proxyInfo.getPort()));
         properties.put(BlackDuckServerConfigBuilder.PROXY_USERNAME_KEY.getKey(), proxyInfo.getUsername().orElse(""));

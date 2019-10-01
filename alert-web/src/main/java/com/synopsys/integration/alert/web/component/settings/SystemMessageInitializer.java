@@ -1,5 +1,5 @@
 /**
- * blackduck-alert
+ * alert-web
  *
  * Copyright (c) 2019 Synopsys, Inc.
  *
@@ -34,16 +34,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.synopsys.integration.alert.ProxyManager;
 import com.synopsys.integration.alert.common.enumeration.SystemMessageSeverity;
 import com.synopsys.integration.alert.common.enumeration.SystemMessageType;
+import com.synopsys.integration.alert.common.persistence.accessor.SystemMessageUtility;
+import com.synopsys.integration.alert.common.persistence.accessor.UserAccessor;
 import com.synopsys.integration.alert.common.persistence.model.UserModel;
 import com.synopsys.integration.alert.common.provider.ProviderValidator;
 import com.synopsys.integration.alert.common.security.EncryptionUtility;
 import com.synopsys.integration.alert.common.workflow.startup.StartupComponent;
-import com.synopsys.integration.alert.database.api.DefaultUserAccessor;
-import com.synopsys.integration.alert.database.system.SystemMessageUtility;
 import com.synopsys.integration.alert.web.component.settings.descriptor.SettingsDescriptor;
+import com.synopsys.integration.alert.web.component.settings.descriptor.SettingsUIConfig;
 
 @Component
 @Order(3)
@@ -52,16 +52,16 @@ public class SystemMessageInitializer extends StartupComponent {
     private final List<ProviderValidator> providerValidators;
     private final EncryptionUtility encryptionUtility;
     private final SystemMessageUtility systemMessageUtility;
-    private final DefaultUserAccessor userAccessor;
-    private final ProxyManager proxyManager;
+    private final UserAccessor userAccessor;
+    private final DefaultProxyManager defaultProxyManager;
 
     @Autowired
-    public SystemMessageInitializer(List<ProviderValidator> providerValidators, EncryptionUtility encryptionUtility, SystemMessageUtility systemMessageUtility, DefaultUserAccessor userAccessor, ProxyManager proxyManager) {
+    public SystemMessageInitializer(List<ProviderValidator> providerValidators, EncryptionUtility encryptionUtility, SystemMessageUtility systemMessageUtility, UserAccessor userAccessor, DefaultProxyManager defaultProxyManager) {
         this.providerValidators = providerValidators;
         this.encryptionUtility = encryptionUtility;
         this.systemMessageUtility = systemMessageUtility;
         this.userAccessor = userAccessor;
-        this.proxyManager = proxyManager;
+        this.defaultProxyManager = defaultProxyManager;
     }
 
     @Override
@@ -96,7 +96,7 @@ public class SystemMessageInitializer extends StartupComponent {
 
     public boolean validateDefaultAdminEmailSet(final Map<String, String> fieldErrors) {
         final Optional<String> emailAddress = userAccessor
-                                                  .getUser(DefaultUserAccessor.DEFAULT_ADMIN_USER)
+                                                  .getUser(SettingsUIConfig.DEFAULT_ADMIN_USER)
                                                   .map(UserModel::getEmailAddress)
                                                   .filter(StringUtils::isNotBlank);
         final boolean valid = emailAddress.isPresent();
@@ -111,7 +111,7 @@ public class SystemMessageInitializer extends StartupComponent {
 
     public boolean validateDefaultAdminPasswordSet(final Map<String, String> fieldErrors) {
         final Optional<String> passwordSet = userAccessor
-                                                 .getUser(DefaultUserAccessor.DEFAULT_ADMIN_USER)
+                                                 .getUser(SettingsUIConfig.DEFAULT_ADMIN_USER)
                                                  .map(UserModel::getPassword)
                                                  .filter(StringUtils::isNotBlank);
         final boolean valid = passwordSet.isPresent();
@@ -151,7 +151,7 @@ public class SystemMessageInitializer extends StartupComponent {
         boolean valid = true;
         systemMessageUtility.removeSystemMessagesByType(SystemMessageType.PROXY_CONFIGURATION_ERROR);
         try {
-            proxyManager.createProxyInfo();
+            defaultProxyManager.createProxyInfo();
         } catch (final IllegalArgumentException e) {
             valid = false;
             logger.error("  -> Proxy Invalid; cause: {}", e.getMessage());

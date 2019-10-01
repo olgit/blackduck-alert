@@ -31,30 +31,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.synopsys.integration.alert.ProxyManager;
 import com.synopsys.integration.alert.common.AlertProperties;
 import com.synopsys.integration.alert.common.workflow.startup.StartupComponent;
+import com.synopsys.integration.alert.web.component.settings.DefaultProxyManager;
 
 @Component
 @Order(4)
 public class ConfigurationLogger extends StartupComponent {
     private final Logger logger = LoggerFactory.getLogger(ConfigurationLogger.class);
 
-    private final ProxyManager proxyManager;
+    private final DefaultProxyManager defaultProxyManager;
     private final AlertProperties alertProperties;
 
     @Autowired
-    public ConfigurationLogger(final ProxyManager proxyManager, final AlertProperties alertProperties) {
-        this.proxyManager = proxyManager;
+    public ConfigurationLogger(final DefaultProxyManager defaultProxyManager, final AlertProperties alertProperties) {
+        this.defaultProxyManager = defaultProxyManager;
         this.alertProperties = alertProperties;
     }
 
     @Override
     protected void initialize() {
-        final Optional<String> proxyHost = proxyManager.getProxyHost();
-        final Optional<String> proxyPort = proxyManager.getProxyPort();
-        final Optional<String> proxyUsername = proxyManager.getProxyUsername();
-        final Optional<String> proxyPassword = proxyManager.getProxyPassword();
+        final Optional<String> proxyHost = defaultProxyManager.getProxyHost();
+        final Optional<String> proxyPort = defaultProxyManager.getProxyPort();
+        final Optional<String> proxyUsername = defaultProxyManager.getProxyUsername();
+        final Optional<String> proxyPassword = defaultProxyManager.getProxyPassword();
 
         final boolean authenticatedProxy = StringUtils.isNotBlank(proxyPassword.orElse(""));
 

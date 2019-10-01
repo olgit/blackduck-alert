@@ -20,7 +20,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.synopsys.integration.alert.web.component.scheduling.actions;
+package com.synopsys.integration.alert.component.scheduling.actions;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -32,9 +32,9 @@ import com.synopsys.integration.alert.common.action.ApiAction;
 import com.synopsys.integration.alert.common.rest.model.FieldModel;
 import com.synopsys.integration.alert.common.rest.model.FieldValueModel;
 import com.synopsys.integration.alert.common.workflow.task.TaskManager;
+import com.synopsys.integration.alert.component.scheduling.descriptor.SchedulingDescriptor;
 import com.synopsys.integration.alert.provider.blackduck.tasks.BlackDuckAccumulator;
 import com.synopsys.integration.alert.provider.polaris.tasks.PolarisProjectSyncTask;
-import com.synopsys.integration.alert.web.component.scheduling.descriptor.SchedulingDescriptor;
 import com.synopsys.integration.alert.workflow.scheduled.PurgeTask;
 import com.synopsys.integration.alert.workflow.scheduled.frequency.DailyTask;
 

@@ -10,9 +10,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import com.synopsys.integration.alert.ProxyManager;
 import com.synopsys.integration.alert.util.OutputLogger;
 import com.synopsys.integration.alert.util.TestAlertProperties;
+import com.synopsys.integration.alert.web.component.settings.DefaultProxyManager;
 import com.synopsys.integration.alert.workflow.startup.component.ConfigurationLogger;
 
 public class StartupLogTest {
@@ -33,14 +33,14 @@ public class StartupLogTest {
     @Test
     public void testLogConfiguration() throws Exception {
         final TestAlertProperties testAlertProperties = new TestAlertProperties();
-        final ProxyManager proxyManager = Mockito.mock(ProxyManager.class);
+        final DefaultProxyManager defaultProxyManager = Mockito.mock(DefaultProxyManager.class);
 
-        Mockito.when(proxyManager.getProxyHost()).thenReturn(Optional.of("google.com"));
-        Mockito.when(proxyManager.getProxyPort()).thenReturn(Optional.of("3218"));
-        Mockito.when(proxyManager.getProxyUsername()).thenReturn(Optional.of("AUser"));
-        Mockito.when(proxyManager.getProxyPassword()).thenReturn(Optional.of("aPassword"));
+        Mockito.when(defaultProxyManager.getProxyHost()).thenReturn(Optional.of("google.com"));
+        Mockito.when(defaultProxyManager.getProxyPort()).thenReturn(Optional.of("3218"));
+        Mockito.when(defaultProxyManager.getProxyUsername()).thenReturn(Optional.of("AUser"));
+        Mockito.when(defaultProxyManager.getProxyPassword()).thenReturn(Optional.of("aPassword"));
 
-        final ConfigurationLogger configurationLogger = new ConfigurationLogger(proxyManager, testAlertProperties);
+        final ConfigurationLogger configurationLogger = new ConfigurationLogger(defaultProxyManager, testAlertProperties);
 
         configurationLogger.initializeComponent();
         assertTrue(outputLogger.isLineContainingText("Alert Proxy Authenticated: true"));

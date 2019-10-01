@@ -15,29 +15,30 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import com.synopsys.integration.alert.common.persistence.accessor.SystemMessageUtility;
+import com.synopsys.integration.alert.common.persistence.accessor.SystemStatusUtility;
 import com.synopsys.integration.alert.common.rest.model.FieldModel;
 import com.synopsys.integration.alert.common.rest.model.FieldValueModel;
-import com.synopsys.integration.alert.database.api.DefaultSystemStatusUtility;
-import com.synopsys.integration.alert.database.system.DefaultSystemMessageUtility;
-import com.synopsys.integration.alert.database.system.SystemMessage;
+import com.synopsys.integration.alert.common.rest.model.SystemMessageModel;
 import com.synopsys.integration.alert.web.action.SystemActions;
 import com.synopsys.integration.alert.web.component.settings.descriptor.SettingsDescriptor;
 import com.synopsys.integration.alert.web.component.settings.descriptor.SettingsDescriptorKey;
 import com.synopsys.integration.alert.web.config.action.ConfigActions;
+import com.synopsys.integration.rest.RestConstants;
 
 public class SystemActionsTest {
     private static final SettingsDescriptorKey SETTINGS_DESCRIPTOR_KEY = new SettingsDescriptorKey();
 
-    private DefaultSystemStatusUtility defaultSystemStatusUtility;
-    private DefaultSystemMessageUtility systemMessageUtility;
+    private SystemStatusUtility defaultSystemStatusUtility;
+    private SystemMessageUtility systemMessageUtility;
     private ConfigActions configActions;
 
     @BeforeEach
     public void initiailize() {
-        defaultSystemStatusUtility = Mockito.mock(DefaultSystemStatusUtility.class);
-        systemMessageUtility = Mockito.mock(DefaultSystemMessageUtility.class);
+        defaultSystemStatusUtility = Mockito.mock(SystemStatusUtility.class);
+        systemMessageUtility = Mockito.mock(SystemMessageUtility.class);
         configActions = Mockito.mock(ConfigActions.class);
-        final List<SystemMessage> messages = createSystemMessageList();
+        final List<SystemMessageModel> messages = createSystemMessageList();
         Mockito.when(systemMessageUtility.getSystemMessages()).thenReturn(messages);
         Mockito.when(systemMessageUtility.getSystemMessagesAfter(Mockito.any())).thenReturn(messages);
     }
@@ -146,9 +147,10 @@ public class SystemActionsTest {
         assertTrue(fieldErrors.isEmpty());
     }
 
-    private List<SystemMessage> createSystemMessageList() {
+    private List<SystemMessageModel> createSystemMessageList() {
         ZonedDateTime zonedDateTime = ZonedDateTime.now();
         zonedDateTime = zonedDateTime.minusMinutes(1);
-        return Collections.singletonList(new SystemMessage(Date.from(zonedDateTime.toInstant()), "type", "content", "type"));
+        final Date from = Date.from(zonedDateTime.toInstant());
+        return Collections.singletonList(new SystemMessageModel("type", RestConstants.formatDate(from), "content", "type"));
     }
 }

@@ -13,18 +13,19 @@ import com.synopsys.integration.alert.common.enumeration.ConfigContextEnum;
 import com.synopsys.integration.alert.common.persistence.accessor.ConfigurationAccessor;
 import com.synopsys.integration.alert.common.persistence.model.ConfigurationFieldModel;
 import com.synopsys.integration.alert.common.persistence.model.ConfigurationModel;
+import com.synopsys.integration.alert.web.component.settings.DefaultProxyManager;
 import com.synopsys.integration.alert.web.component.settings.descriptor.SettingsDescriptor;
 import com.synopsys.integration.alert.web.component.settings.descriptor.SettingsDescriptorKey;
 import com.synopsys.integration.rest.proxy.ProxyInfo;
 
-public class ProxyManagerTest {
+public class DefaultProxyManagerTest {
     public static final String HOST = "host";
     public static final String PORT = "9999";
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
     private ConfigurationAccessor configurationAccessor;
     private ConfigurationModel configurationModel;
-    private ProxyManager proxyManager;
+    private DefaultProxyManager defaultProxyManager;
 
     @BeforeEach
     public void initTest() throws Exception {
@@ -33,7 +34,7 @@ public class ProxyManagerTest {
 
         SettingsDescriptorKey settingsDescriptorKey = new SettingsDescriptorKey();
         Mockito.when(configurationAccessor.getConfigurationByDescriptorNameAndContext(settingsDescriptorKey.getUniversalKey(), ConfigContextEnum.GLOBAL)).thenReturn(List.of(configurationModel));
-        proxyManager = new ProxyManager(settingsDescriptorKey, configurationAccessor);
+        defaultProxyManager = new DefaultProxyManager(settingsDescriptorKey, configurationAccessor);
     }
 
     @Test
@@ -53,7 +54,7 @@ public class ProxyManagerTest {
         Mockito.when(configurationModel.getField(SettingsDescriptor.KEY_PROXY_USERNAME)).thenReturn(Optional.of(usernameModel));
         Mockito.when(configurationModel.getField(SettingsDescriptor.KEY_PROXY_PWD)).thenReturn(Optional.of(passwordModel));
 
-        final ProxyInfo proxyInfo = proxyManager.createProxyInfo();
+        final ProxyInfo proxyInfo = defaultProxyManager.createProxyInfo();
         assertEquals(HOST, proxyInfo.getHost().orElse(null));
         assertEquals(Integer.valueOf(PORT).intValue(), proxyInfo.getPort());
         assertEquals(USERNAME, proxyInfo.getUsername().orElse(null));

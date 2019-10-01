@@ -44,12 +44,12 @@ import com.synopsys.integration.alert.common.persistence.model.ConfigurationMode
 import com.synopsys.integration.alert.common.rest.model.AlertNotificationWrapper;
 import com.synopsys.integration.alert.common.workflow.task.StartupScheduledTask;
 import com.synopsys.integration.alert.common.workflow.task.TaskManager;
+import com.synopsys.integration.alert.component.scheduling.SchedulingConfiguration;
+import com.synopsys.integration.alert.component.scheduling.descriptor.SchedulingDescriptor;
+import com.synopsys.integration.alert.component.scheduling.descriptor.SchedulingDescriptorKey;
 import com.synopsys.integration.alert.database.api.DefaultNotificationManager;
 import com.synopsys.integration.alert.database.system.DefaultSystemMessageUtility;
 import com.synopsys.integration.alert.database.system.SystemMessage;
-import com.synopsys.integration.alert.web.component.scheduling.SchedulingConfiguration;
-import com.synopsys.integration.alert.web.component.scheduling.descriptor.SchedulingDescriptor;
-import com.synopsys.integration.alert.web.component.scheduling.descriptor.SchedulingDescriptorKey;
 
 @Component
 public class PurgeTask extends StartupScheduledTask {

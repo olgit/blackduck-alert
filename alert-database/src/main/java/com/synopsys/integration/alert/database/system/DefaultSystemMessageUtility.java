@@ -22,10 +22,14 @@
  */
 package com.synopsys.integration.alert.database.system;
 
+import java.text.ParseException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,9 +37,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.synopsys.integration.alert.common.enumeration.SystemMessageSeverity;
 import com.synopsys.integration.alert.common.enumeration.SystemMessageType;
 import com.synopsys.integration.alert.common.message.model.DateRange;
+import com.synopsys.integration.alert.common.persistence.accessor.SystemMessageUtility;
+import com.synopsys.integration.alert.common.rest.model.SystemMessageModel;
+import com.synopsys.integration.rest.RestConstants;
 
 @Component
-public class DefaultSystemMessageUtility {
+public class DefaultSystemMessageUtility implements SystemMessageUtility {
+    private Logger logger = LoggerFactory.getLogger(DefaultSystemMessageUtility.class);
     private final SystemMessageRepository systemMessageRepository;
 
     @Autowired
@@ -43,6 +51,7 @@ public class DefaultSystemMessageUtility {
         this.systemMessageRepository = systemMessageRepository;
     }
 
+    @Override
     @Transactional
     public void addSystemMessage(final String message, final SystemMessageSeverity severity, final SystemMessageType messageType) {
         final Date currentTime = DateRange.createCurrentDateTimestamp();
@@ -50,42 +59,70 @@ public class DefaultSystemMessageUtility {
         systemMessageRepository.save(systemMessage);
     }
 
+    @Override
     @Transactional
     public void removeSystemMessagesByType(final SystemMessageType messageType) {
         final List<SystemMessage> messages = systemMessageRepository.findByType(messageType.name());
         systemMessageRepository.deleteAll(messages);
     }
 
+    @Override
     @Transactional
-    public List<SystemMessage> getSystemMessages() {
-        return systemMessageRepository.findAll();
+    public List<SystemMessageModel> getSystemMessages() {
+        return convertAllToSystemMessageModel(systemMessageRepository.findAll());
     }
 
+    @Override
     @Transactional
-    public List<SystemMessage> getSystemMessagesAfter(final Date date) {
+    public List<SystemMessageModel> getSystemMessagesAfter(final Date date) {
         final Date currentTime = DateRange.createCurrentDateTimestamp();
-        return systemMessageRepository.findByCreatedBetween(date, currentTime);
+        return convertAllToSystemMessageModel(systemMessageRepository.findByCreatedBetween(date, currentTime));
     }
 
+    @Override
     @Transactional
-    public List<SystemMessage> getSystemMessagesBefore(final Date date) {
+    public List<SystemMessageModel> getSystemMessagesBefore(final Date date) {
         final long recordCount = systemMessageRepository.count();
         if (recordCount == 0) {
             return Collections.emptyList();
         } else {
             final SystemMessage oldestMessage = systemMessageRepository.findTopByOrderByCreatedAsc();
-            return systemMessageRepository.findByCreatedBetween(oldestMessage.getCreated(), date);
+            return convertAllToSystemMessageModel(systemMessageRepository.findByCreatedBetween(oldestMessage.getCreated(), date));
         }
     }
 
+    @Override
     @Transactional
-    public List<SystemMessage> findBetween(final DateRange dateRange) {
-        return systemMessageRepository.findByCreatedBetween(dateRange.getStart(), dateRange.getEnd());
+    public List<SystemMessageModel> findBetween(final DateRange dateRange) {
+        return systemMessageRepository.findByCreatedBetween(dateRange.getStart(), dateRange.getEnd()).stream().map(this::convertToSystemMessageModel).collect(Collectors.toList());
     }
 
+    @Override
     @Transactional
-    public void deleteSystemMessages(final List<SystemMessage> messagesToDelete) {
-        systemMessageRepository.deleteAll(messagesToDelete);
+    public void deleteSystemMessages(final List<SystemMessageModel> messagesToDelete) {
+        final List<SystemMessage> convertedMessages = messagesToDelete.stream()
+                                                          .map(this::convertToSystemMessage)
+                                                          .filter(message -> message != null).collect(Collectors.toList());
+        systemMessageRepository.deleteAll(convertedMessages);
+    }
+
+    private List<SystemMessageModel> convertAllToSystemMessageModel(List<SystemMessage> systemMessages) {
+        return systemMessages.stream().map(this::convertToSystemMessageModel).collect(Collectors.toList());
+    }
+
+    private SystemMessageModel convertToSystemMessageModel(final SystemMessage systemMessage) {
+        final String createdAt = RestConstants.formatDate(systemMessage.getCreated());
+        return new SystemMessageModel(systemMessage.getSeverity(), createdAt, systemMessage.getContent(), systemMessage.getType());
+    }
+
+    private SystemMessage convertToSystemMessage(SystemMessageModel systemMessageModel) {
+        try {
+            Date date = RestConstants.parseDateString(systemMessageModel.getCreatedAt());
+            return new SystemMessage(date, systemMessageModel.getSeverity(), systemMessageModel.getContent(), systemMessageModel.getType());
+        } catch (ParseException e) {
+            logger.error("There was an issue parsing the stored CreatedAt date.");
+        }
+        return null;
     }
 
 }

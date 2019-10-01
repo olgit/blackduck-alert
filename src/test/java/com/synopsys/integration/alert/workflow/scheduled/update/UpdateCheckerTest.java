@@ -15,11 +15,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.google.gson.Gson;
-import com.synopsys.integration.alert.ProxyManager;
 import com.synopsys.integration.alert.common.AlertProperties;
-import com.synopsys.integration.alert.database.api.DefaultSystemStatusAccessor;
 import com.synopsys.integration.alert.util.TestTags;
 import com.synopsys.integration.alert.web.action.AboutReader;
+import com.synopsys.integration.alert.web.component.settings.DefaultProxyManager;
 import com.synopsys.integration.alert.workflow.scheduled.update.model.UpdateModel;
 import com.synopsys.integration.rest.proxy.ProxyInfo;
 
@@ -218,8 +217,8 @@ public class UpdateCheckerTest {
         @Tag(TestTags.CUSTOM_EXTERNAL_CONNECTION)
     })
     public void getUpdateModelTest() {
-        final ProxyManager proxyManager = Mockito.mock(ProxyManager.class);
-        Mockito.when(proxyManager.createProxyInfo()).thenReturn(ProxyInfo.NO_PROXY_INFO);
+        final DefaultProxyManager defaultProxyManager = Mockito.mock(DefaultProxyManager.class);
+        Mockito.when(defaultProxyManager.createProxyInfo()).thenReturn(ProxyInfo.NO_PROXY_INFO);
 
         final SystemStatusUtility systemStatusUtility = Mockito.mock(SystemStatusUtility.class);
         Mockito.when(systemStatusUtility.isSystemInitialized()).thenReturn(Boolean.TRUE);
@@ -229,7 +228,7 @@ public class UpdateCheckerTest {
         Mockito.when(alertProperties.getAlertTrustCertificate()).thenReturn(Optional.of(Boolean.TRUE));
 
         final AboutReader reader = new AboutReader(gson, systemStatusUtility);
-        final UpdateChecker updateChecker = new UpdateChecker(gson, reader, proxyManager, alertProperties);
+        final UpdateChecker updateChecker = new UpdateChecker(gson, reader, defaultProxyManager, alertProperties);
 
         final UpdateModel updateModel = updateChecker.getUpdateModel();
 

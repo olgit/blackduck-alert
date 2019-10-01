@@ -1,5 +1,5 @@
 /**
- * blackduck-alert
+ * alert-web
  *
  * Copyright (c) 2019 Synopsys, Inc.
  *
@@ -31,11 +31,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.synopsys.integration.alert.channel.email.EmailChannelKey;
-import com.synopsys.integration.alert.channel.email.EmailMessagingService;
-import com.synopsys.integration.alert.channel.email.EmailProperties;
-import com.synopsys.integration.alert.channel.email.template.EmailTarget;
-import com.synopsys.integration.alert.channel.util.FreemarkerTemplatingService;
 import com.synopsys.integration.alert.common.AlertProperties;
+import com.synopsys.integration.alert.common.channel.email.EmailMessagingService;
+import com.synopsys.integration.alert.common.channel.email.EmailProperties;
+import com.synopsys.integration.alert.common.channel.email.template.EmailTarget;
 import com.synopsys.integration.alert.common.enumeration.ConfigContextEnum;
 import com.synopsys.integration.alert.common.enumeration.EmailPropertyKeys;
 import com.synopsys.integration.alert.common.exception.AlertDatabaseConstraintException;
@@ -45,6 +44,7 @@ import com.synopsys.integration.alert.common.persistence.accessor.FieldAccessor;
 import com.synopsys.integration.alert.common.persistence.accessor.UserAccessor;
 import com.synopsys.integration.alert.common.persistence.model.ConfigurationModel;
 import com.synopsys.integration.alert.common.persistence.model.UserModel;
+import com.synopsys.integration.alert.common.util.FreemarkerTemplatingService;
 
 @Component
 public class PasswordResetService {

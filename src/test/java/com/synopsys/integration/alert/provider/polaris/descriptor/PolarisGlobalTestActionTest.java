@@ -21,7 +21,6 @@ import org.junit.platform.commons.util.StringUtils;
 import org.mockito.Mockito;
 
 import com.google.gson.Gson;
-import com.synopsys.integration.alert.ProxyManager;
 import com.synopsys.integration.alert.common.AlertProperties;
 import com.synopsys.integration.alert.common.descriptor.config.field.ConfigField;
 import com.synopsys.integration.alert.common.persistence.accessor.FieldAccessor;
@@ -34,6 +33,7 @@ import com.synopsys.integration.alert.provider.polaris.actions.PolarisGlobalTest
 import com.synopsys.integration.alert.util.TestProperties;
 import com.synopsys.integration.alert.util.TestPropertyKey;
 import com.synopsys.integration.alert.util.TestTags;
+import com.synopsys.integration.alert.web.component.settings.DefaultProxyManager;
 import com.synopsys.integration.alert.web.config.action.FieldValidationAction;
 import com.synopsys.integration.builder.BuilderStatus;
 import com.synopsys.integration.exception.IntegrationException;
@@ -136,9 +136,9 @@ public class PolarisGlobalTestActionTest {
 
         final AlertProperties alertProperties = Mockito.mock(AlertProperties.class);
         Mockito.when(alertProperties.getAlertTrustCertificate()).thenReturn(Optional.of(Boolean.TRUE));
-        final ProxyManager proxyManager = Mockito.mock(ProxyManager.class);
-        Mockito.when(proxyManager.createProxyInfo()).thenReturn(ProxyInfo.NO_PROXY_INFO);
-        final PolarisProperties polarisProperties = new PolarisProperties(POLARIS_PROVIDER_KEY, alertProperties, null, proxyManager, new Gson());
+        final DefaultProxyManager defaultProxyManager = Mockito.mock(DefaultProxyManager.class);
+        Mockito.when(defaultProxyManager.createProxyInfo()).thenReturn(ProxyInfo.NO_PROXY_INFO);
+        final PolarisProperties polarisProperties = new PolarisProperties(POLARIS_PROVIDER_KEY, alertProperties, null, defaultProxyManager, new Gson());
 
         final PolarisGlobalTestAction actionApi = new PolarisGlobalTestAction(polarisProperties);
         try {

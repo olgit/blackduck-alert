@@ -34,17 +34,18 @@ import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
 import com.synopsys.integration.alert.channel.email.descriptor.EmailDescriptor;
-import com.synopsys.integration.alert.channel.email.template.EmailChannelMessageParser;
-import com.synopsys.integration.alert.channel.email.template.EmailTarget;
-import com.synopsys.integration.alert.channel.util.FreemarkerTemplatingService;
 import com.synopsys.integration.alert.common.AlertProperties;
 import com.synopsys.integration.alert.common.channel.NamedDistributionChannel;
+import com.synopsys.integration.alert.common.channel.email.EmailMessagingService;
+import com.synopsys.integration.alert.common.channel.email.EmailProperties;
+import com.synopsys.integration.alert.common.channel.email.template.EmailTarget;
 import com.synopsys.integration.alert.common.enumeration.EmailPropertyKeys;
 import com.synopsys.integration.alert.common.event.DistributionEvent;
 import com.synopsys.integration.alert.common.exception.AlertException;
 import com.synopsys.integration.alert.common.message.model.LinkableItem;
 import com.synopsys.integration.alert.common.message.model.MessageContentGroup;
 import com.synopsys.integration.alert.common.persistence.accessor.FieldAccessor;
+import com.synopsys.integration.alert.common.util.FreemarkerTemplatingService;
 import com.synopsys.integration.alert.database.api.DefaultAuditUtility;
 import com.synopsys.integration.exception.IntegrationException;
 

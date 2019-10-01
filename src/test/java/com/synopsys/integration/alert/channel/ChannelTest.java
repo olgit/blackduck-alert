@@ -23,9 +23,6 @@ import org.mockito.Mockito;
 import org.springframework.core.convert.support.DefaultConversionService;
 
 import com.google.gson.Gson;
-import com.synopsys.integration.alert.ProxyManager;
-import com.synopsys.integration.alert.channel.util.ChannelRestConnectionFactory;
-import com.synopsys.integration.alert.channel.util.RestChannelUtility;
 import com.synopsys.integration.alert.common.ContentConverter;
 import com.synopsys.integration.alert.common.enumeration.ItemOperation;
 import com.synopsys.integration.alert.common.exception.AlertException;
@@ -33,10 +30,13 @@ import com.synopsys.integration.alert.common.message.model.ComponentItem;
 import com.synopsys.integration.alert.common.message.model.LinkableItem;
 import com.synopsys.integration.alert.common.message.model.ProviderMessageContent;
 import com.synopsys.integration.alert.common.persistence.accessor.AuditUtility;
+import com.synopsys.integration.alert.common.util.ChannelRestConnectionFactory;
+import com.synopsys.integration.alert.common.util.RestChannelUtility;
 import com.synopsys.integration.alert.database.api.DefaultAuditUtility;
 import com.synopsys.integration.alert.util.OutputLogger;
 import com.synopsys.integration.alert.util.TestAlertProperties;
 import com.synopsys.integration.alert.util.TestProperties;
+import com.synopsys.integration.alert.web.component.settings.DefaultProxyManager;
 import com.synopsys.integration.rest.proxy.ProxyInfo;
 
 public abstract class ChannelTest {
@@ -121,9 +121,9 @@ public abstract class ChannelTest {
 
     public RestChannelUtility createRestChannelUtility() {
         final TestAlertProperties testAlertProperties = new TestAlertProperties();
-        final ProxyManager proxyManager = Mockito.mock(ProxyManager.class);
-        Mockito.when(proxyManager.createProxyInfo()).thenReturn(ProxyInfo.NO_PROXY_INFO);
-        final ChannelRestConnectionFactory channelRestConnectionFactory = new ChannelRestConnectionFactory(testAlertProperties, proxyManager);
+        final DefaultProxyManager defaultProxyManager = Mockito.mock(DefaultProxyManager.class);
+        Mockito.when(defaultProxyManager.createProxyInfo()).thenReturn(ProxyInfo.NO_PROXY_INFO);
+        final ChannelRestConnectionFactory channelRestConnectionFactory = new ChannelRestConnectionFactory(testAlertProperties, defaultProxyManager);
         return new RestChannelUtility(channelRestConnectionFactory);
     }
 
